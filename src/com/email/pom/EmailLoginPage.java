@@ -9,13 +9,13 @@ public class EmailLoginPage
 {
 	private WebDriver driver;
 	
-	@FindBy(id="input_1")
+	@FindBy(id="username")
 	private WebElement unTextBox;
 	
-	@FindBy(id="input_2")
+	@FindBy(id="password")
 	private WebElement pwTextBox;
 	
-	@FindBy(xpath="//input[@type=('submit')]")
+	@FindBy(xpath="//input [@class='btn' and  @value='Sign in']")
 	private WebElement loginButton;
 	
 	public EmailLoginPage(WebDriver driver)
@@ -26,7 +26,7 @@ public class EmailLoginPage
 	
 	public void login(String un,String pw)
 	{
-		driver.get("https://email.abbvie.com");
+		driver.get("https://mail.cognizant.com/");
 		unTextBox.sendKeys(un);
 		pwTextBox.sendKeys(pw);
 		loginButton.click();
