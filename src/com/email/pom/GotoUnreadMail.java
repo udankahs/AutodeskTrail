@@ -11,6 +11,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class GotoUnreadMail {
 
 	private WebDriver driver;
+	
+	@FindBy(id = "divToolbarButtonfltrc")
+	private WebElement Filter;
 
 	@FindBy(xpath = "//span[@id=('_ariaId_68')]")
 	private WebElement unread;
