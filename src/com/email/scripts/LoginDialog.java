@@ -6,6 +6,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
 
+/*  Owner			:		Udanka HS 
+ * 	Email ID		:		udanka.hs@cognizant.com
+ * 	Associate ID	:		266241
+ * 	Organization	: 		Cognizant Technology Solutions	
+*/
+
 @SuppressWarnings("serial")
 public class LoginDialog extends JDialog {
 

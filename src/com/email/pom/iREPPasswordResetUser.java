@@ -5,6 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/*  Owner			:		Udanka HS 
+ * 	Email ID		:		udanka.hs@cognizant.com
+ * 	Associate ID	:		266241
+ * 	Organization	: 		Cognizant Technology Solutions	
+*/
+
 public class iREPPasswordResetUser {
 	private WebDriver driver;
 
@@ -24,8 +30,11 @@ public class iREPPasswordResetUser {
 
 	@FindBy(id = "moderatorMutton")
 	private WebElement DownArrow;
+	
+	@FindBy(xpath = "//span[text()= 'User Detail']")
+	private WebElement UserDetail;
 
-	@FindBy(xpath = "//a[contains (text(), 'Edit Profile')]")
+	@FindBy(xpath = "//td[@id='topButtonRow']//input[@title= 'Edit']")
 	private WebElement Edit;
 
 	@FindBy(xpath = "//a[contains (text(), 'Setup')]")
@@ -60,23 +69,24 @@ public class iREPPasswordResetUser {
 		this.driver = driver;
 	}
 
-	public boolean reset(String UserName, String email)
-			throws InterruptedException {
-		if (driver.getTitle().contains("salesforce.com - Enterprise Edition")) {
+	public boolean reset(String UserName, String email)	throws InterruptedException {
+		//if (driver.getTitle().contains("salesforce.com - Enterprise Edition")) {
+		if (driver.getTitle().equals("salesforce.com - Developer Edition")) {
 			SearchBox.click();
 			SearchBox.sendKeys(UserName);
 			SearchButton.click();
 			Thread.sleep(5000);
 			User.click();
 			DownArrow.click();
+			UserDetail.click();
 			Edit.click();
 			Email.clear();
 			Email.sendKeys(email);
 			PasswordResetCheckbox.click();
-//			Save.click();
-//			Menu.click();
-//			Logout.click();
-//			Thread.sleep(5000);
+			Save.click();
+			Menu.click();
+			Logout.click();
+			Thread.sleep(5000);
 
 			status = true;
 
@@ -94,14 +104,15 @@ public class iREPPasswordResetUser {
 			Thread.sleep(8000);
 			User.click();
 			DownArrow.click();
+			UserDetail.click();
 			Edit.click();
 			Email.clear();
 			Email.sendKeys(email);
 			PasswordResetCheckbox.click();
-//			Save.click();
-//			Menu.click();
-//			Logout.click();
-//			Thread.sleep(5000);
+			Save.click();
+			Menu.click();
+			Logout.click();
+			Thread.sleep(5000);
 
 			status = true;
 

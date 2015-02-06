@@ -8,13 +8,19 @@ import javax.swing.*;
 import org.testng.TestListenerAdapter;
 import org.testng.TestNG;
 
+/*  Owner			:		Udanka HS 
+ * 	Email ID		:		udanka.hs@cognizant.com
+ * 	Associate ID	:		266241
+ * 	Organization	: 		Cognizant Technology Solutions	
+*/
+
 public class Main {
 	public static void main(String[] args) {
 		final JFrame frame = new JFrame("SPURP Tool");
 		JPanel nested1 = new JPanel(new GridLayout(0, 1));
 		JPanel nested2 = new JPanel(new GridLayout(1, 1));
 
-		JLabel textLabel = new JLabel("Welcome to SPURP Tool",
+		final JLabel textLabel = new JLabel("Welcome to SPURP Tool",
 				SwingConstants.CENTER);
 		final JButton btnLogin = new JButton("Click to login");
 
@@ -24,7 +30,7 @@ public class Main {
 				loginDlg.setVisible(true);
 				// if logon successfully
 				if (loginDlg.isSucceeded()) {
-					btnLogin.setText("Click Here to Re-Login");
+					textLabel.setText("Please Wait. Dont close the Window");
 					
 					TestListenerAdapter tla = new TestListenerAdapter();
 					TestNG testng = new TestNG();

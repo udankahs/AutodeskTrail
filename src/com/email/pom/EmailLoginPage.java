@@ -5,6 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+/*  Owner			:		Udanka HS 
+ * 	Email ID		:		udanka.hs@cognizant.com
+ * 	Associate ID	:		266241
+ * 	Organization	: 		Cognizant Technology Solutions	
+*/
+
 public class EmailLoginPage
 {
 	private WebDriver driver;

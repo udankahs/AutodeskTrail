@@ -1,5 +1,6 @@
 package com.email.pom;
 
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -8,23 +9,36 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/*  Owner			:		Udanka HS 
+ * 	Email ID		:		udanka.hs@cognizant.com
+ * 	Associate ID	:		266241
+ * 	Organization	: 		Cognizant Technology Solutions	
+*/
+
 public class GotoUnreadMail {
 
 	private WebDriver driver;
+	public boolean message; 
 	
-	@FindBy(id = "divToolbarButtonfltrc")
+	@FindBy(id = "fltrc")
 	private WebElement Filter;
 
-	@FindBy(xpath = "//span[@id=('_ariaId_68')]")
+	@FindBy(xpath = "//*[@id=('_divUnread')]")
 	private WebElement unread;
-
-	@FindBy(xpath = "//span[contains(text(), 'Subject Sandbox: Salesforce.com password confirmation')]/../../..")
+	
+	@FindBy(id = "btnFltrApp")
+	private WebElement Apply;
+	
+	@FindBy(id = "btn0")
+	private WebElement OK;
+	
+	@FindBy(xpath = "//div[@id='divSubject' and contains(text(), 'Salesforce.com password confirmation')][1]")
 	private WebElement FirstMail;
 
-	@FindBy(xpath = "//span[@autoid='_o365c_4' and contains(text(), 'mark as read')]")
+	@FindBy(id = "divMR")
 	private WebElement MarkAsRead;
 
-	@FindBy(xpath = "//a[1]")
+	@FindBy(xpath ="//body//a[1]")
 	private WebElement pswRestLink;
 
 	@FindBy(id = "p5")
@@ -36,7 +50,7 @@ public class GotoUnreadMail {
 	@FindBy(xpath = "html/body/div[2]/div/div[2]/div[1]/div[2]/div[2]/div/div[1]/div/table/tbody/tr/td[1]/button")
 	private WebElement Menu;
 
-	@FindBy(xpath = "//span[text()='Sign out']")
+	@FindBy(xpath = "//span[text()='sign out']")
 	private WebElement Logout;
 
 	@FindBy(xpath = "//input[@type=('submit') and @title=('Save')]")
@@ -50,21 +64,33 @@ public class GotoUnreadMail {
 		this.driver = driver;
 	}
 
-	public String gotoUnreadMail(String pwd, String newUser) throws InterruptedException 
+	public boolean gotoUnreadMail(String pwd) throws InterruptedException 
 	{
+		Filter.click();
 		unread.click();
+		Apply.click();
+		
+		try{
+		OK.click();
+		}
+		catch (NoSuchElementException e)
+		{
+			e.printStackTrace();
+		}
 		WebDriverWait wait = new WebDriverWait(driver, 20);
 
 		wait.until(ExpectedConditions.visibilityOf(FirstMail));
 		FirstMail.click();
+		driver.switchTo().frame("ifBdy");
 		String url = pswRestLink.getText();
-
+		System.out.println(url);
+		
+		driver.switchTo().defaultContent();
 		Actions action = new Actions(driver);
 		action.moveToElement(FirstMail).contextClick().build().perform();
 
 		MarkAsRead.click();
 		Thread.sleep(5000);
-		Menu.click();
 		Logout.click();
 
 		driver.get(url);
@@ -74,8 +100,7 @@ public class GotoUnreadMail {
 
 		if (title.equals("salesforce.com - Customer Secure Login Page")) 
 		{
-			System.out.println("The Link Expired.");
-			newUser = "NA";
+			message = false;
 		} 
 		else if (title.equals("Scheduled Improvements @ salesforce.com")) 
 		{
@@ -84,16 +109,16 @@ public class GotoUnreadMail {
 			reEnterPWD.sendKeys(pwd);
 			Save.click();
 			Thread.sleep(6000);
-			System.out.println("Login succsfull. Password has been reset succesfully for "+ newUser);
+			message = true;
 		} 
-		else if (title.equals("salesforce.com - Change Password")) 
+		else if (title.contains("Force.com Home Page ~ salesforce.com - Developer Edition")) 
 		{
 			enterPWD.sendKeys(pwd);
 			reEnterPWD.sendKeys(pwd);
 			Save.click();
 			Thread.sleep(6000);
-			System.out.println("Login succsfull. Password has been reset succesfully for "+ newUser);
+			message = true;
 		}
-		return newUser;
+		return message;
 	}
 }
